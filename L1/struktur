@@ -1,0 +1,12 @@
+filmerOchSerier
+    recension+
+        titel
+        genre
+        attr: typ (film|serie)
+        imdb
+        beskrivning
+        bild
+            attr: bild-url
+        netflix?
+
+    

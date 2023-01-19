@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE filmerOchSerier SYSTEM "filmerochserier.dtd">
+
+<filmerOchSerier>
+
+    <recension>
+        <titel typ="serie">Breaking Bad</titel>
+        <genre>Brott, Drama, Thriller</genre>
+        <imdb>9.5</imdb>
+        <beskrivning>En kemilärare med diagnosen inoperabel lungcancer vänder sig till att tillverka och sälja metamfetamin tillsammans med en före detta elev för att säkra sin familjs framtid.</beskrivning>
+        <bild bild-url="https://m.media-amazon.com/images/M/MV5BYTU3NWI5OGMtZmZhNy00MjVmLTk1YzAtZjA3ZDA3NzcyNDUxXkEyXkFqcGdeQXVyODY5Njk4Njc@._V1_.jpg"/>
+        <streaming streamingservice="netflix">
+            <link>https://www.netflix.com/se/title/70143836</link>
+        </streaming>
+    </recension>
+
+</filmerOchSerier>

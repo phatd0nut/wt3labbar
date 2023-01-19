@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE filmerOchSerier SYSTEM "filmerochserier.dtd">
+
+<filmerOchSerier>
+
+    <recension>
+        <titel typ="serie">Game of Thrones</titel>
+        <genre>Action, Äventyr, Drama</genre>
+        <imdb>9.2</imdb>
+        <beskrivning>
+            Nio adelsfamiljer slåss om kontroll över Westeros länder, medan en uråldrig fiende återvänder efter att ha varit vilande i årtusenden.</beskrivning>
+        <bild bild-url="https://i1.sndcdn.com/artworks-W8KXhQeXZrv2YSJO-ctOyHA-t500x500.jpg"/>
+        <streaming streamingservice="hbo">
+            <link>https://www.hbomax.com/se/sv/series/urn:hbo:series:GVU2cggagzYNJjhsJATwolinknk></link>
+        </streaming>
+    </recension>
+
+</filmerOchSerier>

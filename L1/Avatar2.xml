@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE filmerOchSerier SYSTEM "filmerochserier.dtd">
+
+<filmerOchSerier>
+
+    <recension>
+        <titel typ="film">Avatar: The Way of Water</titel>
+        <genre>Action, Äventyr, Fantasy</genre>
+        <imdb>7.9</imdb>
+        <beskrivning>Jake Sully bor med sin nyfunna familj som bildats på den extrasolära månen Pandora. När ett välbekant hot återvänder för att avsluta det som tidigare påbörjades måste Jake samarbeta med Neytiri och Na'vi-rasens armé för att skydda deras hem.</beskrivning>
+        <bild bild-url="https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg"/>
+        <streaming/>
+    </recension>
+
+</filmerOchSerier>

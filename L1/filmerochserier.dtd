@@ -1,0 +1,26 @@
+<!-- filmerOchSerier
+    recension+
+        titel
+            attr: typ (film|serie)
+        genre
+        imdb
+        beskrivning
+        bild
+            attr: bild-url
+        streaming?
+            attr: streamingtjänst? (netflix|hbo)
+            länk?
+-->
+
+<!ELEMENT filmerOchSerier (recension+)>
+    <!ELEMENT recension (titel, genre, imdb, beskrivning, bild, streaming?)>
+    <!ELEMENT titel (#PCDATA)>
+        <!ATTLIST titel typ (film|serie) #REQUIRED>
+    <!ELEMENT genre (#PCDATA)>
+    <!ELEMENT imdb (#PCDATA)>
+    <!ELEMENT beskrivning (#PCDATA)>
+    <!ELEMENT bild EMPTY>
+        <!ATTLIST bild bild-url CDATA #REQUIRED>
+    <!ELEMENT streaming (link?)>
+       <!ATTLIST streaming streamingservice (netflix|hbo) #IMPLIED>
+       <!ELEMENT link (#PCDATA)>
