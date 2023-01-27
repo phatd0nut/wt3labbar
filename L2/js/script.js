@@ -43,9 +43,10 @@ function getData(XMLcode, selectedSubject) { // Funktion som bearbetar och skriv
 
 	if (HTMLcode == "") {
 		subjectInfoElem.innerHTML = noInfoElem.textContent;
-	} else {
-		subjectInfoElem.innerHTML = HTMLcode;
 	}
+
+	else subjectInfoElem.innerHTML = HTMLcode;
+	
 }
 
 
