@@ -83,21 +83,24 @@ function requestData(course, courseName) {
 
 
 function getData2(XMLcode) {
-	let courseInfo = XMLcode.getElementsByTagName("course");
+	let courseInfo = XMLcode.getElementsByTagName("course"); // Referens för kurselementen i XML
 	let HTMLcode = "";
 
-
 	for (let i = 0; i < courseInfo.length; i++) {
-		let codeElem = courseInfo[i].getElementsByTagName("code")[0];
-		let titleElem = courseInfo[i].getElementsByTagName("title")[0];
+		let codeElem = courseInfo[i].getElementsByTagName("code")[0]; // Referens för kurskoden
+		let titleElem = courseInfo[i].getElementsByTagName("title")[0]; // Referens för kursen
+		let moreInfoElem = courseInfo[i].getElementsByTagName("moreinfo")[0]; //Referens där länken till kursens webbplats finns
+		let url = moreInfoElem.getAttribute("url"); // Referens som hämtar URL:en från XML-taggen och sparar det i denna variabel
+		let link = document.createElement("a"); //Variabel som skapar en HTML-tagg (<a>)
+		link.setAttribute("href", url); //Variabel som tillsätter attributen href till <a>-taggen
+		link.innerHTML = titleElem.firstChild.data;
 		let creditsElem = courseInfo[i].getElementsByTagName("credits")[0];
+		if (courseInfo[i].getElementsByTagName("contact").length > 0) {
+			let contactElem = courseInfo[i].getElementsByTagName("contact")[0];
+			let nameElem = contactElem.getElementsByTagName("name")[0];
+			HTMLcode += "<p>" + codeElem.firstChild.data + ", " + link.outerHTML + ", " + creditsElem.firstChild.data + " hp, " + "Kontaktperson: " + nameElem.firstChild.data + "</p>";
+		}
 
-		HTMLcode += "<p>" + codeElem.firstChild.data + ", " + titleElem.firstChild.data + ", " + creditsElem.firstChild.data + " hp" + "</p>";
 	}
-
-
 	courseListElem.innerHTML = HTMLcode;
-
-
 }
-
