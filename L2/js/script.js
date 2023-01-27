@@ -90,8 +90,8 @@ function getData2(XMLcode) {
 	for (let i = 0; i < courseInfo.length; i++) {
 		let codeElem = courseInfo[i].getElementsByTagName("code")[0]; // Referens för kurskoden
 		let titleElem = courseInfo[i].getElementsByTagName("title")[0]; // Referens för kursen
-		let moreInfoElem = courseInfo[i].getElementsByTagName("moreinfo")[0]; //Referens där länken till kursens webbplats finns
-		let url = moreInfoElem.getAttribute("url"); // Referens som hämtar URL:en från XML-taggen och sparar det i denna variabel
+		let moreInfoElem = courseInfo[i].getElementsByTagName("moreinfo")[0]; //Referens till XML-elementet där länken till kursens webbplats finns
+		let url = moreInfoElem.getAttribute("url"); // Referens som hämtar URL:en från XML-elementet och sparar det i denna variabel
 		let link = document.createElement("a"); //Variabel som skapar en HTML-tagg (<a>)
 		link.setAttribute("href", url); //Variabel som tillsätter attributen href till <a>-taggen
 		link.innerHTML = titleElem.firstChild.data;
