@@ -94,13 +94,17 @@ function getData2(XMLcode) {
 		let link = document.createElement("a"); //Variabel som skapar en HTML-tagg (<a>)
 		link.setAttribute("href", url); //Variabel som tillsätter attributen href till <a>-taggen
 		link.innerHTML = titleElem.firstChild.data;
-		let creditsElem = courseInfo[i].getElementsByTagName("credits")[0];
+		let creditsElem = courseInfo[i].getElementsByTagName("credits")[0]; // Referens till högskolepoängen
 		if (courseInfo[i].getElementsByTagName("contact").length > 0) {
 			let contactElem = courseInfo[i].getElementsByTagName("contact")[0];
 			let nameElem = contactElem.getElementsByTagName("name")[0];
 			HTMLcode += "<p>" + codeElem.firstChild.data + ", " + link.outerHTML + ", " + creditsElem.firstChild.data + " hp, " + "Kontaktperson: " + nameElem.firstChild.data + "</p>";
 		}
 
+		else HTMLcode += "<p>" + codeElem.firstChild.data + ", " + link.outerHTML + ", " + creditsElem.firstChild.data + " hp";
 	}
+
 	courseListElem.innerHTML = HTMLcode;
 }
+
+
