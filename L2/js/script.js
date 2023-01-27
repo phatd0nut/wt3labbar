@@ -98,10 +98,10 @@ function getData2(XMLcode) {
 		if (courseInfo[i].getElementsByTagName("contact").length > 0) {
 			let contactElem = courseInfo[i].getElementsByTagName("contact")[0];
 			let nameElem = contactElem.getElementsByTagName("name")[0];
-			HTMLcode += "<p>" + codeElem.firstChild.data + ", " + link.outerHTML + ", " + creditsElem.firstChild.data + " hp, " + "Kontaktperson: " + nameElem.firstChild.data + "</p>";
+			HTMLcode += "<p>" + codeElem.firstChild.data + ", " + link.outerHTML + ", " + creditsElem.firstChild.data + "hp, " + "Kontaktperson: " + nameElem.firstChild.data + "</p>";
 		}
 
-		else HTMLcode += "<p>" + codeElem.firstChild.data + ", " + link.outerHTML + ", " + creditsElem.firstChild.data + " hp";
+		else HTMLcode += "<p>" + codeElem.firstChild.data + ", " + link.outerHTML + ", " + creditsElem.firstChild.data + "hp";
 	}
 
 	courseListElem.innerHTML = HTMLcode;
