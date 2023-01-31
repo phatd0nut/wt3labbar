@@ -89,4 +89,48 @@ function addTeachers() {
 	const teachers = ["Romain Herault", "Rune Körnefors", "Jorge Zapico"];
 	const teacherLinks = ["https://lnu.se/personal/romain.herault", "http://lnu.se/personal/rune.kornefors", "https://lnu.se/personal/jorgeluis.zapico/"];
 
+	let courseTeacherElem = document.querySelectorAll("li"); //Referens för li-elementen
+
+
+	for (let i = 0; i < courseTeacherElem.length; i++) {
+
+		if (courseTeacherElem[5].innerHTML == "1ME311, Digitala medier, 7,5hp") {
+			let br = document.createElement("br"); //Variabel som skapar br-element
+			let a = document.createElement("a"); //Variabel som skapar a-element
+			let t = document.createTextNode(teachers[0]); //Variabel kopierar lärarens namn från teachers arrayen och skapar en textsträng
+			a.appendChild(t);
+			a.setAttribute("href", teacherLinks[0]);
+			a.setAttribute("target", "_blank");
+			courseTeacherElem[5].appendChild(br);
+			courseTeacherElem[5].appendChild(a);
+
+		}
+
+		else if (courseTeacherElem[6].innerHTML == "1ME323, Webbteknik 3, 7,5hp") {
+			br = document.createElement("br");
+			a = document.createElement("a");
+			t = document.createTextNode(teachers[1]);
+			a.appendChild(t);
+			a.setAttribute("href", teacherLinks[1]);
+			a.setAttribute("target", "_blank");
+			courseTeacherElem[6].appendChild(br);
+			courseTeacherElem[6].appendChild(a);
+
+		}
+
+		else if (courseTeacherElem[7].innerHTML == "1ME331, Interaktionsdesign 1, 7,5hp") {
+			br = document.createElement("br");
+			a = document.createElement("a");
+			t = document.createTextNode(teachers[2]);
+			a.appendChild(t);
+			a.setAttribute("href", teacherLinks[2]);
+			a.setAttribute("target", "_blank");
+			courseTeacherElem[7].appendChild(br);
+			courseTeacherElem[7].appendChild(a);
+
+		}
+
+	}
+
+
 } // End addTeachers
