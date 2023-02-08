@@ -21,26 +21,20 @@ window.addEventListener("load", init); // init aktiveras då sidan är inladdad
 // ---------------------------------------------------------------
 // Kopiera alla länkar ur huvudtexten och lägg upp dem i en lista.
 function listLinks() {
-	let links = document.querySelectorAll("a"); //Referens för alla länkar i texten
-	let HTMLcode = ""; //Referens för utskrift av länkarna som ska användas i linkListElem
+	if (linkListElem.childElementCount > 0) {
+		return;
+	}
+	let links = document.querySelectorAll("main section:nth-of-type(1) div:first-of-type a"); //Referens för alla länkar i texten
 
-	for (let i = 0; i < links.length - 1; i++) {
-		let url = links[i].getAttribute("href"); //Hämtar URL:en tillsammans med attributen från länkarna i HTML-dokumentet
-		let link = document.createElement("a"); //Variabel som skapar nytt element <a>
-		link.setAttribute("href", url); //Variabel som sätter href-attribut på <a> elementet
+	for (let i = 0; i < links.length; i++) {
+		let newP = document.createElement("p"); //Variabel som skapar nytt element <a>
+		newP.setAttribute("target", "_blank"); //Variabel som sätter href-attribut på <a> elementet
 		let linkTitle = links[i].cloneNode(true); //Variabel som klonar textinnehållet i länkarna från <a> elementen
-		link.innerHTML = linkTitle.innerHTML; //Länkarna blir tilldelade samma titel som i texten när de listas.
-		linkListElem.appendChild(link);
+		newP.appendChild(linkTitle);
+		linkListElem.appendChild(newP);
 
-		HTMLcode += link.outerHTML + "<br><br>";
 	}
 
-	linkListElem.innerHTML = HTMLcode;
-
-
-	if (linkListElem.innerHTML == HTMLcode) {
-		document.getElementById("linkBtn").removeEventListener("click", listLinks);
-	}
 }
 
 // End listLinks
@@ -89,47 +83,18 @@ function addTeachers() {
 	const teachers = ["Romain Herault", "Rune Körnefors", "Jorge Zapico"];
 	const teacherLinks = ["https://lnu.se/personal/romain.herault", "http://lnu.se/personal/rune.kornefors", "https://lnu.se/personal/jorgeluis.zapico/"];
 
-	let courseTeacherElem = document.querySelectorAll("li"); //Referens för li-elementen
-
+	let courseTeacherElem = document.querySelectorAll("main section:nth-of-type(3) div:first-of-type ul li");
+	//Referens för li-elementen
 
 	for (let i = 0; i < courseTeacherElem.length; i++) {
-
-		if (courseTeacherElem[5].innerHTML == "1ME311, Digitala medier, 7,5hp") {
 			let br = document.createElement("br"); //Variabel som skapar br-element
 			let a = document.createElement("a"); //Variabel som skapar a-element
-			let t = document.createTextNode(teachers[0]); //Variabel kopierar lärarens namn från teachers arrayen och skapar en textsträng
+			let t = document.createTextNode(teachers[i]); //Variabel kopierar lärarens namn från teachers arrayen och skapar en textsträng
 			a.appendChild(t);
-			a.setAttribute("href", teacherLinks[0]);
+			a.setAttribute("href", teacherLinks[i]);
 			a.setAttribute("target", "_blank");
-			courseTeacherElem[5].appendChild(br);
-			courseTeacherElem[5].appendChild(a);
-
-		}
-
-		else if (courseTeacherElem[6].innerHTML == "1ME323, Webbteknik 3, 7,5hp") {
-			br = document.createElement("br");
-			a = document.createElement("a");
-			t = document.createTextNode(teachers[1]);
-			a.appendChild(t);
-			a.setAttribute("href", teacherLinks[1]);
-			a.setAttribute("target", "_blank");
-			courseTeacherElem[6].appendChild(br);
-			courseTeacherElem[6].appendChild(a);
-
-		}
-
-		else if (courseTeacherElem[7].innerHTML == "1ME331, Interaktionsdesign 1, 7,5hp") {
-			br = document.createElement("br");
-			a = document.createElement("a");
-			t = document.createTextNode(teachers[2]);
-			a.appendChild(t);
-			a.setAttribute("href", teacherLinks[2]);
-			a.setAttribute("target", "_blank");
-			courseTeacherElem[7].appendChild(br);
-			courseTeacherElem[7].appendChild(a);
-
-		}
-
+			courseTeacherElem[i].appendChild(br);
+			courseTeacherElem[i].appendChild(a);
 	}
 
 
