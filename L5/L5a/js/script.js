@@ -1,6 +1,13 @@
 // Initiering av globala variabler och händelsehanterare
 function init() {
 	let imageViewer = new ImageViewer("imgViewer");
+	
+	imageViewer.menuElem = document.querySelector("#imgViewerMenu");
+	imageViewer.menuElem.addEventListener("change", function () {
+		imageViewer.imgIx = this.selectedIndex;
+		imageViewer.showImage();
+	});
+
 
 	document.querySelector("#categoryMenu").addEventListener("change", function () {
 		imageViewer.requestImages("json/images" + this.selectedIndex + ".json");
@@ -45,8 +52,8 @@ function ImageViewer(id) {
 	}
 
 	ImageViewer.prototype.getImages = function (JSONtext) {
-		let pictures = JSON.parse(JSONtext).image;
-		
+		let pictures = JSON.parse(JSONtext).image; //Extraherar informationen som finns i JSON-arrayen image
+
 		for (let i = 0; i < pictures.length; i++) {
 			this.list.push(pictures[i]);
 		}
@@ -54,6 +61,14 @@ function ImageViewer(id) {
 		this.list = pictures;
 		this.imgIx = 0;
 		this.showImage();
+
+		let menu = this.menuElem;
+		menu.innerHTML = ""; // Ta bort tidigare val
+		for (let i = 0; i < this.list.length; i++) {
+			let option = document.createElement("option"); //Skapar ett val i listan för varje bild
+			option.innerHTML = this.list[i].caption; //Sätter innehållet på det nya option-elementet till bildens textbeskrivning
+			menu.appendChild(option); //Gör det möjligt för användare att klicka på de olika bilderna
+		}
 	}
 
 	ImageViewer.prototype.showImage = function () {
