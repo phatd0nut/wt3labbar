@@ -1,5 +1,5 @@
 // Globala variabler
-var myApiKey = "DIN-API-KEY";	// Ersätt DIN-API-KEY med din egen API key
+var myApiKey = "a90c20870b53c16631d0255ded19dfc9";	// Ersätt DIN-API-KEY med din egen API key
 var flickrImgElem;		// Referens till element där bilderna ska visas
 var formElem;			// Referens till sökformuläret
 var tags;				// Taggar som anges i sökformuläret
@@ -21,12 +21,12 @@ function init() {
 	}
 	imgLocationElem = document.getElementById("imgLocation");
 	moreImgElem = document.getElementById("moreImg");
-	formElem.searchBtn.addEventListener("click",serchImgs);
-	document.getElementById("prevBtn").addEventListener("click",prevPage);
-	document.getElementById("nextBtn").addEventListener("click",nextPage);
+	formElem.searchBtn.addEventListener("click", serchImgs);
+	document.getElementById("prevBtn").addEventListener("click", prevPage);
+	document.getElementById("nextBtn").addEventListener("click", nextPage);
 	pageNr = 1;
 } // End init
-window.addEventListener("load",init);
+window.addEventListener("load", init);
 
 // -----------------------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ function requestNewImgs() {
 	flickrImgElem.innerHTML = "<img src='img/progress.gif' style='border:none;'>";
 	pageNrElem.innerHTML = pageNr;
 	let request = new XMLHttpRequest(); // Object för Ajax-anropet
-	request.open("GET","https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.search&tags=" + tags + "&per_page=5&page=" + pageNr + "&format=json&nojsoncallback=1",true);
+	request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.search&tags=" + tags + "&per_page=5&page=" + pageNr + "&format=json&nojsoncallback=1&has_geo=1", true);
 	request.send(null); // Skicka begäran till servern
 	request.onreadystatechange = function () { // Funktion för att avläsa status i kommunikationen
 		if (request.readyState == 4)
@@ -54,15 +54,15 @@ function requestNewImgs() {
 // Tolka svaret och visa upp bilderna. Välj 5 slumpmässigt ur de 500.
 function newImgs(response) {
 	response = JSON.parse(response);
-	flickrImgElem.innerHTML = "";		
+	flickrImgElem.innerHTML = "";
 	for (let i = 0; i < response.photos.photo.length; i++) {
 		let photo = response.photos.photo[i]; // Ett foto i svaret
 		let imgUrl = "https://live.staticflickr.com/" + photo.server + "/" +
-					photo.id + "_" + photo.secret + "_s.jpg"; // Adress till en bild
+			photo.id + "_" + photo.secret + "_s.jpg"; // Adress till en bild
 		let newElem = document.createElement("img"); // Nytt img-element
-		newElem.setAttribute("src",imgUrl);
-		newElem.setAttribute("data-photo",JSON.stringify(photo)); // Spara data om fotot
-		newElem.addEventListener("click",enlargeImg);
+		newElem.setAttribute("src", imgUrl);
+		newElem.setAttribute("data-photo", JSON.stringify(photo)); // Spara data om fotot
+		newElem.addEventListener("click", enlargeImg);
 		flickrImgElem.appendChild(newElem);
 	} // End for
 } // End newImgs
@@ -85,7 +85,7 @@ function nextPage() {
 function enlargeImg() {
 	let photo = JSON.parse(this.getAttribute("data-photo")); // Objekt med data om fotot
 	let imgUrl = "https://live.staticflickr.com/" + photo.server + "/" +
-				photo.id + "_" + photo.secret + "_z.jpg"; // Adress till en bild
+		photo.id + "_" + photo.secret + "_z.jpg"; // Adress till en bild
 	largeImgElem.img.src = imgUrl;
 	largeImgElem.caption.innerHTML = photo.title;
 	// Tillägg i lab 6:
@@ -96,27 +96,61 @@ function enlargeImg() {
 
 // Ajax-begäran av plats för bilden
 function requestLocation(id) {
-	
-} // End requestLocation
+	let request = new XMLHttpRequest();
+	request.open("GET", "https://api.flickr.com/services/rest/?api_key=" + myApiKey + "&method=flickr.photos.geo.getLocation&photo_id=" + id + "&format=json&nojsoncallback=1", true);
+	request.send(null);
+	request.onreadystatechange = function () {
+		if (request.readyState == 4)
+			if (request.status == 200) showLocation(request.responseText);
+			else flickrImgElem.innerHTML = "Den begärda resursen finns inte.";
+	};
+}
+// End requestLocation
 
 // Visa koordinater
 function showLocation(response) {
-	
+	let coordinates = JSON.parse(response);
+	let lat = coordinates.photo.location.latitude;
+	let lon = coordinates.photo.location.longitude;
+	imgLocationElem.innerHTML = "Latitud: " + lat + "<br>" + "Longitud: " + lon;
+	requestImgsByLocation(lat, lon);
+
 } // End showLocation
 
 // Ajax-begäran av nya bilder
-function requestImgsByLocation(lat,lon) {
-	
+function requestImgsByLocation(lat, lon) {
+	let request = new XMLHttpRequest();
+	request.open("GET", "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=" + myApiKey + "&lat=" + lat + "&lon=" + lon + "&per_page=5&format=json&nojsoncallback=1", true)
+	request.send(null);
+	request.onreadystatechange = function () {
+		if (request.readyState == 4)
+			if (request.status == 200) showMoreImgs(request.responseText);
+			else flickrImgElem.innerHTML = "Den begärda resursen finns inte.";
+	};
+
 } // End requestImgsByLocation
 
 // Tolka svaret och visa upp bilderna.
 function showMoreImgs(response) {
-	
+	response = JSON.parse(response);
+	moreImgElem.innerHTML = "";
+
+	for (let i = 0; i < response.photos.photo.length; i++) {
+		let morePhotos = response.photos.photo[i];
+		let imgUrl = "https://live.staticflickr.com/" + morePhotos.server + "/" +
+			morePhotos.id + "_" + morePhotos.secret + "_s.jpg";
+		let newElem = document.createElement("img");
+		newElem.setAttribute("src", imgUrl);
+		moreImgElem.appendChild(newElem);
+	}
+
+
+
 } // End showMoreImgs
 
 // ---------- Karta från Google Maps ---------- Extramerit
 
 // Skapa en karta och markeringar
-function initMap(lat,lon) {
-	
+function initMap(lat, lon) {
+
 } // End initMap
