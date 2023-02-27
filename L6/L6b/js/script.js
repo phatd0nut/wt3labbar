@@ -3,19 +3,25 @@ var myMap;				// Objekt för kartan
 var myMarkers = [];		// Array med markeringar
 var userMarker;			// Objekt för markering där användaren klickar
 const markerData = [	// Data för markeringar som hör till knapparna
-			{position:{lat:0.000000,lng:0.000000},title:"x"},
-			{position:{lat:0.000000,lng:0.000000},title:"x"},
-			{position:{lat:0.000000,lng:0.000000},title:"x"},
-			{position:{lat:0.000000,lng:0.000000},title:"x"},
-			{position:{lat:0.000000,lng:0.000000},title:"x"}
+			{position:{lat:56.860090, lng:14.819391},title:"Willy's Teleborg"},
+			{position:{lat:56.863746, lng:14.811667},title:"Växjösjön"},
+			{position:{lat:56.862026, lng:14.828387},title:"Trummen"},
+			{position:{lat:56.857610, lng:14.822808},title:"ICA Teleborg"},
+			{position:{lat:56.860653344832855,lng:14.820088882466944},title:"MAX Teleborg"}
 		];
 var mapLocationElem;			// Element för utskrift av koordinater
-var myApiKey = "DIN-API-KEY";	// Ersätt DIN-API-KEY med din egen Flickr API key
+var myApiKey = "a90c20870b53c16631d0255ded19dfc9";	// Ersätt DIN-API-KEY med din egen Flickr API key
 var flickrImgElem;				// Referens till element där bilderna ska visas
 
 // Initiering av programmet
 function init() {
 	initMap();
+	for (let i = 0; i < markerData.length; i++) {
+		let newMarkers = new google.maps.Marker(markerData[i]);
+		myMarkers.push(newMarkers);
+		
+		
+	}
 	mapLocationElem = document.getElementById("mapLocation");
 	flickrImgElem = document.getElementById("flickrImg");
 } // End init
@@ -28,7 +34,7 @@ function initMap() {
 	myMap = new google.maps.Map(
 			document.getElementById('map'),
 			{
-				center: {lat:0.000000, lng:0.000000},
+				center: {lat:56.858739, lng:14.820484},
 				zoom: 14,
 				styles: [
 					{featureType:"poi", stylers:[{visibility:"off"}]},  // No points of interest.
