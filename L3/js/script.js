@@ -27,12 +27,11 @@ function listLinks() {
 	let links = document.querySelectorAll("main section:nth-of-type(1) div:first-of-type a"); //Referens för alla länkar i texten
 
 	for (let i = 0; i < links.length; i++) {
-		let newP = document.createElement("p"); //Variabel som skapar nytt element <a>
-		newP.setAttribute("target", "_blank"); //Variabel som sätter href-attribut på <a> elementet
-		let linkTitle = links[i].cloneNode(true); //Variabel som klonar textinnehållet i länkarna från <a> elementen
-		newP.appendChild(linkTitle);
-		linkListElem.appendChild(newP);
-
+		let cloneLink = links[i].cloneNode(true); // Kopierar länkarna
+		cloneLink.setAttribute("target", "_blank"); // Sätter target_blank attribut på länkarna
+		let newP = document.createElement("p"); // Skapar ett nytt p-element
+		newP.appendChild(cloneLink); // Bifogar länken i nya p-elementet
+		linkListElem.appendChild(newP); // Bifogar länkarna i div-elementet där de ska visas
 	}
 
 }
