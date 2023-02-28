@@ -11,15 +11,16 @@ const markerData = [	// Data för markeringar som hör till knapparna
 		];
 var mapLocationElem;			// Element för utskrift av koordinater
 var myApiKey = "a90c20870b53c16631d0255ded19dfc9";	// Ersätt DIN-API-KEY med din egen Flickr API key
-var flickrImgElem;				// Referens till element där bilderna ska visas
-
+var flickrImgElem;  			// Referens till element där bilderna ska visas
 // Initiering av programmet
 function init() {
 	initMap();
+
 	for (let i = 0; i < markerData.length; i++) {
-		let newMarkers = new google.maps.Marker(markerData[i]);
-		myMarkers.push(newMarkers);
-		
+		let buttons = document.getElementsByTagName("button"); //Referens för knapparna i HTML dokumentet
+		buttons[i].innerHTML = markerData[i].title; //Tillägnar knapparna markörernas titel
+		buttons[i].setAttribute("data-ix", i); //Indexerar knapparna
+		buttons[i].addEventListener("click", showAddrMarker); //Anropar funktionen som visar markörerna
 		
 	}
 	mapLocationElem = document.getElementById("mapLocation");
@@ -56,10 +57,19 @@ function newUserMarker(e) {
 	userMarker = new google.maps.Marker();
 	userMarker.setPosition(e.latLng);
 	userMarker.setMap(myMap);
-} // End newUserMarker
+	  // Skriv ut koordinaterna
+	  const lat = e.latLng.lat();
+	  const lng = e.latLng.lng();
+	  mapLocationElem.innerHTML = "Latitud: " + lat + ", Longitud: " + lng;
+	}
+ // End newUserMarker
 
 // Visa marker för den adressknapp som användaren klickat på
 function showAddrMarker() {
+	hideMarkers();
+	let index = this.getAttribute("data-ix"); // Hämta indexet från data-ix attributet på den klickade knappen
+	let markerToShow = myMarkers[index]; // Hämta markeringen från myMarkers arrayen baserat på indexet
+	markerToShow.setMap(myMap); // Visa markeringen på kartan
 	
 } // End showAddrMarker
 
